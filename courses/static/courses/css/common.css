@@ -1,0 +1,23 @@
+.overflow-y-scroll{
+    overflow-y: scroll;
+}
+
+body{
+    font-family: 'Poppins';
+}
+.price{
+    font-size: 20px;
+}
+
+.active-video{
+    background-color: rgb(95, 95, 255);
+    color: white;
+  }
+
+  .active-video-link{
+      color: white;
+  }
+
+  .active-video-link:hover{
+      color: white;
+  }

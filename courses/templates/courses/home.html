@@ -1,0 +1,65 @@
+{% extends 'base.html' %}
+{% load course_custom_tags %}
+{% load static %}
+{% block title %}Course Selling App | Home{% endblock %}
+
+{% block css %}
+
+<link rel="stylesheet" href="{% static 'courses/css/scrollbar.css' %}">
+<link rel="stylesheet" href="{% static 'courses/css/common.css' %}">
+
+{% endblock %}
+
+{% block content %}
+
+
+<div class="container-fluid">
+    <br>
+    <div class="row">
+    {% for course in courses %}
+    <div class="col mx-auto">
+
+    <div class="card mx-auto" style="width: 18rem;">
+        <img src="{{course.thumbnail.url}}" class="card-img-top" alt="..." >
+        <div class="card-body">
+          <span class="price card-title">{{course.name}}</span>
+          <p class="card-text m-0 p-0">
+            {% if course.discount != 0 %}
+            <del>{{course.price|rupee}}</del>
+            &nbsp;
+
+            <span class="price" >{% cal_sellprice course.price course.discount as value %} {{value|rupee}}</span>
+            {% else %}
+
+            <p class="price">
+                
+                ₹{{ course.price }}</p>
+
+            {% endif %}
+        </span>
+          </p>
+
+
+        </div>
+          
+    <div class="card-footer ">
+        <div class="row no-gutters">
+            <div class="col">
+                <a href="#" class="btn btn-primary btn-block">Enroll Now</a>
+            </div>
+
+            <div class="col">
+                <a href="/course/{{course.slug}}" class="btn btn-secondary btn-block">Show More</a>
+            </div>
+        </div>
+    </div>
+    </div>
+
+    </div>
+    {% endfor %}
+</div>
+
+</div>
+
+
+{% endblock %}
