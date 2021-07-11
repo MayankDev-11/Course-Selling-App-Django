@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+{% load course_custom_tags %}
+{% load static %}
+{% block title %}Course Selling App | SignUp{% endblock %}
+
+{% block css %}
+<link rel="stylesheet" href="{% static 'courses/css/scrollbar.css' %}">
+<link rel="stylesheet" href="{% static 'courses/css/common.css' %}">
+
+{% endblock %}
+
+{% block content %}
+
+<h1 class="display-1">
+    Login Page
+</h1>
+
+<hr>
+
+<div class="container">
+    <form action="" method="post">
+        {% csrf_token %}
+        {{form.as_p}}
+        <input type="submit" class="btn btn-primary" value="Login" />
+    </form>
+</div>
+
+<script src="{% static 'courses/js/course_page.js' %}" ></script>
+{% endblock %}

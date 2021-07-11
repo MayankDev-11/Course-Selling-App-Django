@@ -1,5 +1,7 @@
 from django import template
 import math
+from courses.models import UserCourse,Course
+
 
 register = template.Library()
 
@@ -10,6 +12,20 @@ def cal_sellprice(price, discount):
     sellprice = price
     sellprice = price - (price * discount * 0.01)
     return math.floor(sellprice)
+
+
+@register.simple_tag
+def is_enrolled(request,course):
+    user = None
+    if not request.user.is_authenticated:
+        return False
+    user = request.user
+    try:
+        user_course = UserCourse.objects.get(user=user, course=course)
+        return True
+    except:
+        return False
+
 
 @register.filter
 def rupee(price):

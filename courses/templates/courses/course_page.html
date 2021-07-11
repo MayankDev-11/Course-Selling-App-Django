@@ -26,9 +26,16 @@
         
         <div class="col-3">
             <ul id="video_list" class="list-group overflow-y-scroll">
+              {% is_enrolled request course as enrolled %}
             {% for v in videos %}
                 <li class="list-group-item {% if v == video %} active-video {% endif %} ">
-                  <a href="?lecture={{v.serial_number}}" class="text-decoration-none {% if v == video %} active-video-link {% endif %} ">{{v}}</a>
+                  <a class="text-decoration-none
+                  {% if not enrolled and not v.is_preview %} text-muted no-preview{% endif %}
+                  
+                  {% if v == video %} active-video-link {% endif %}"
+
+                  href="?lecture={{v.serial_number}}"
+                  >{{v}}</a>
                 </li>
             {% endfor %}
 

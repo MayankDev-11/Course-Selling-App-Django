@@ -1,0 +1,104 @@
+{% extends 'base.html' %}
+{% load course_custom_tags %}
+{% load static %}
+{% block title %}Course Selling App | Check Out{% endblock %}
+
+{% block css %}
+<link rel="stylesheet" href="{% static 'courses/css/scrollbar.css' %}">
+<link rel="stylesheet" href="{% static 'courses/css/common.css' %}">
+
+{% endblock %}
+
+{% block content %}
+
+<div class="container">
+<br>
+
+<br>
+    <div class="row">
+        <div class="col mx-auto">
+            <div class="card mx-auto" style="width: 18rem;">
+                <img src="{{course.thumbnail.url}}" class="card-img-top" alt="..." >
+                <div class="card-body">
+                  <span class="price card-title">{{course.name}}</span>
+                  <p class="card-text m-0 p-0">
+                    {% if course.discount != 0 %}
+                    <del>{{course.price|rupee}}</del>
+                    &nbsp;
+        
+                    <span class="price" >{% cal_sellprice course.price course.discount as value %} {{value|rupee}}</span>
+                    {% else %}
+                    <p class="price">
+                        ₹{{ course.price }}</p>
+                    {% endif %}
+                </span>
+                  </p>
+                </div>
+
+                
+            </div>
+            </div>
+
+            <div class="col">
+                <div>
+                    <p class="display-5">
+                        {{course.name}}                        
+                    </p>
+                    <hr>
+                    <p class="display-5">
+                        Payable Amount : <b>{% cal_sellprice course.price course.discount as value %}{{value|rupee}}</b>                        
+                    </p>
+                    <a href="?action=create_payment" class="btn btn-primary btn-lg btn-block">Continue to Payment</a>
+                </div>
+            </div>
+    </div>
+</div>
+
+
+{% if order is not None %}
+
+<script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+
+<script>
+    var options = {
+    "key": "rzp_test_2YhYbPOPTs2Q0p",
+    "name": "{{course.name}}",
+    "description": "Payment for {{course.name}}",
+    "image": "https://elearningindustry.com/wp-content/uploads/2016/01/tips-on-how-to-sell-online-courses-e1453287645311.jpg",
+    "order_id": "{{order.id}}", //This is a sample Order ID. Pass the `id` obtained in the response of Step 1
+    "callback_url": "http://localhost:8000/verify_payment",
+    "prefill": {
+        "name": "{{user.first_name}}",
+        "email": "{{user.email}}",
+    },
+
+    "notes": {
+        "address": "Razorpay Corporate Office"
+    },
+    
+    "theme": {
+        "color": "#3399cc"
+    }
+};
+var rzp1 = new Razorpay(options);
+
+rzp1.open();
+
+</script>
+
+{%endif %}
+
+
+{% if error is not None %}
+
+
+<script>
+    window.onload = ()=>{
+        alert("{{error}}")
+    }
+</script>
+
+
+{% endif %}
+
+{% endblock %}

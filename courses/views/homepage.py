@@ -6,4 +6,4 @@ def home(request):
     return render(request, 'courses/home.html', context={
         "courses":courses
     }
-                  )
+)

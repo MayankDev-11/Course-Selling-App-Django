@@ -5,6 +5,11 @@
 body{
     font-family: 'Poppins';
 }
+
+.display-5{
+    font-size:35px;
+}
+
 .price{
     font-size: 20px;
 }
@@ -20,4 +25,8 @@ body{
 
   .active-video-link:hover{
       color: white;
+  }
+
+  .no-preview{
+      cursor: not-allowed;
   }

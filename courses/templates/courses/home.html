@@ -17,10 +17,10 @@
     <br>
     <div class="row">
     {% for course in courses %}
-    <div class="col mx-auto">
+    <div class="col mx-auto mt-1">
 
     <div class="card mx-auto" style="width: 18rem;">
-        <img src="{{course.thumbnail.url}}" class="card-img-top" alt="..." >
+        <img src="{{course.thumbnail.url}}" class="card-img-top" alt="..." style="height: 8rem; width: 18rem;">
         <div class="card-body">
           <span class="price card-title">{{course.name}}</span>
           <p class="card-text m-0 p-0">
@@ -41,18 +41,33 @@
 
 
         </div>
-          
-    <div class="card-footer ">
-        <div class="row no-gutters">
-            <div class="col">
-                <a href="#" class="btn btn-primary btn-block">Enroll Now</a>
-            </div>
 
-            <div class="col">
-                <a href="/course/{{course.slug}}" class="btn btn-secondary btn-block">Show More</a>
+            <div class="card-footer">
+                {% is_enrolled request course as enrolled %}
+
+                <div class="row no-gutters">    
+                {% if enrolled %}
+                
+                <div class="col">
+                    <a href="/course/{{course.slug}}" class="btn btn-primary btn-block">Start Course</a>
+                </div>
+                
+                
+                {% else %}                    
+                    <div class="col">
+                        <a href="/check-out/{{course.slug}}" class="btn btn-primary btn-block">Enroll Now</a>
+                    </div>
+                
+                    <div class="col">
+                        <a href="/course/{{course.slug}}" class="btn btn-secondary btn-block">Show More</a>
+                    </div>
+                {% endif %}
             </div>
-        </div>
-    </div>
+            </div>
+        
+        
+        
+
     </div>
 
     </div>

@@ -1,0 +1,54 @@
+{% extends 'base.html' %}
+{% load course_custom_tags %}
+{% load static %}
+{% block title %}Course Selling App | My Courses{% endblock %}
+
+{% block css %}
+<link rel="stylesheet" href="{% static 'courses/css/scrollbar.css' %}">
+<link rel="stylesheet" href="{% static 'courses/css/common.css' %}">
+
+{% endblock %}
+
+{% block content %}
+
+<div class="container">
+<h1 class="display-1">
+    My Courses
+</h1>
+
+<hr>
+
+<div class="row">
+    {% for uc in user_courses %}
+    <div class="col mx-auto mt-1">
+
+    <div class="card mx-auto" style="width: 18rem;">
+        <img src="{{uc.course.thumbnail.url}}" class="card-img-top" alt="..." style="height: 8rem; width: 18rem;">
+        <div class="card-body">
+            <h5 class="card-title">{{uc.course.name}}</h5>
+        </div>
+
+            <div class="card-footer">
+
+                <div class="row no-gutters">    
+                
+                <div class="col">
+                    <a href="/course/{{uc.course.slug}}" class="btn btn-primary btn-block">Go to course</a>
+                </div>
+            </div>
+            </div>
+        
+        
+        
+
+    </div>
+
+    </div>
+    {% endfor %}
+</div>
+
+
+</div>
+
+<script src="{% static 'courses/js/course_page.js' %}" ></script>
+{% endblock %}
